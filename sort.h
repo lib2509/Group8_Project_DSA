@@ -9,31 +9,32 @@
 
 using namespace std;
 
-const unsigned int dataSize[6] = { 10000, 30000, 50000, 100000, 300000, 500000 };
-const string dataOrder[4] = { "-rand", "-sorted", "-rev", "-nsorted" };
-const string sortName[11] = { "selection-sort", "insertion-sort", "bubble-sort", "shaker-sort", "shell-sort", "heap-sort", "merge-sort", "quick-sort", "counting-sort", "radix-sort", "flash-sort" };
-const string outputParameter[3] = { "-time", "-comp", "-both" };
-
+const unsigned int dataSize[6] = {10000, 30000, 50000, 100000, 300000, 500000};
+const string dataOrder[4] = {"-rand", "-sorted", "-rev", "-nsorted"};
+const string sortName[11] = {"selection-sort", "insertion-sort", "bubble-sort", "shaker-sort", "shell-sort", "heap-sort", "merge-sort", "quick-sort", "counting-sort", "radix-sort", "flash-sort"};
+const string outputParameter[3] = {"-time", "-comp", "-both"};
 
 class Sort
 {
 private:
-    int* arr;
+    int *arr;
     unsigned int size;
     unsigned long long int comparison;
     unsigned long long int runTime;
-    void selectionSort_runTime(int* arr, int size);
-    void selectionSort_comparison(int* arr, int size);
-    void insertionSort(int* arr, int size);
+    //---------------------------------------------------------------------------------------------
+    void selectionSort_runTime(int *arr, int size);
+    void selectionSort_comparison(int *arr, int size);
+    void insertionSort_runTime(int *arr, int size);
+    void insertionSort_comparison(int *arr, int size);
 
 public:
-    Sort(int* arr = nullptr, unsigned int size = 0);
+    Sort(int *arr = nullptr, unsigned int size = 0);
     int type(string sort_name);
     void reset();
     unsigned long long int getRunningTime();
     unsigned long long int getComparison();
-    void setArr(int* arr, int size);
-    int run(int argc, char* argv[]);
+    void setArr(int *arr, int size);
+    int run(int argc, char *argv[]);
     // ---------------------------------------------------------------------------------------------
     void selectionSort();
     void insertionSort();
@@ -58,9 +59,8 @@ public:
     ~Sort();
 };
 
-
 template <class T>
-void HoanVi(T& a, T& b)
+void HoanVi(T &a, T &b)
 {
     T x = a;
     a = b;
@@ -71,7 +71,6 @@ void HoanVi(T& a, T& b)
 
 // Hàm phát sinh mảng dữ liệu ngẫu nhiên
 void GenerateRandomData(int a[], int n);
-
 
 // Hàm phát sinh mảng dữ liệu có thứ tự tăng dần
 void GenerateSortedData(int a[], int n);
@@ -91,3 +90,5 @@ int convert_string_to_outputType(string s);
 bool isFileExist(string fileName);
 
 int convert_string_to_inputOrderType(string s);
+
+bool isAscending(int *arr, int size);

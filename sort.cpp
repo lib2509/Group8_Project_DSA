@@ -1,6 +1,6 @@
 ﻿#include "sort.h"
 
-Sort::Sort(int* arr, unsigned int size)
+Sort::Sort(int *arr, unsigned int size)
 {
     this->arr = arr;
     this->size = size;
@@ -51,15 +51,17 @@ void Sort::sort(int type)
     }
 }
 
-unsigned long long int Sort::getRunningTime() {
+unsigned long long int Sort::getRunningTime()
+{
     return runTime;
 }
 
-unsigned long long int Sort::getComparison() {
+unsigned long long int Sort::getComparison()
+{
     return comparison;
 }
 
-void Sort::setArr(int* arr, int size)
+void Sort::setArr(int *arr, int size)
 {
     if (this->arr != nullptr)
     {
@@ -88,7 +90,7 @@ int Sort::type(string sort_name)
     return 0;
 }
 
-int Sort::run(int argc, char* argv[])
+int Sort::run(int argc, char *argv[])
 {
     if (argc == 1)
     {
@@ -97,28 +99,32 @@ int Sort::run(int argc, char* argv[])
     }
     else if (argc == 5)
     {
-        if (string(argv[1]) == "-a") {
+        if (string(argv[1]) == "-a")
+        {
             int sortType = this->type(string(argv[2]));
             if (sortType == 0)
             {
-				cout << "Invalid sort name!" << endl;
-				return 1;
-			}
+                cout << "Invalid sort name!" << endl;
+                return 1;
+            }
             // ------------------------------------------------------------
             int outputType = convert_string_to_outputType(string(argv[4]));
-            if (outputType == -1) {
-				cout << "Invalid output type!" << endl;
-				return 1;
-			}
+            if (outputType == -1)
+            {
+                cout << "Invalid output type!" << endl;
+                return 1;
+            }
             // ------------------------------------------------------------
             string filename = string(argv[3]);
-            if (isFileExist(filename)) {
+            if (isFileExist(filename))
+            {
                 return command1(sortType, filename, outputType);
                 /* Prototype: [Execution file] - a[Algorithm][Given input][Output parameter(s)]
                 Ex : a.exe - a radix - sort input.txt - both*/
             }
             unsigned int arrSize = convert_string_to_num(string(argv[3]));
-            if (arrSize == 0) {
+            if (arrSize == 0)
+            {
                 cout << "Invalid size! Pls input a positive integer" << endl;
                 return 1;
             }
@@ -127,8 +133,9 @@ int Sort::run(int argc, char* argv[])
             /*Prototype: [Execution file] - a[Algorithm][Input size][Output parameter(s)]
             Ex : a.exe - a binary - insertion - sort 70000 - comp*/
         }
-        
-        else if (string(argv[1]) == "-c") {
+
+        else if (string(argv[1]) == "-c")
+        {
             int sortType1 = this->type(string(argv[2]));
             int sortType2 = this->type(string(argv[3]));
             if (sortType1 == 0 || sortType2 == 0 || sortType1 == sortType2)
@@ -138,44 +145,51 @@ int Sort::run(int argc, char* argv[])
             }
             // ------------------------------------------------------------
             string filename = string(argv[4]);
-            if (isFileExist(filename)) {
+            if (isFileExist(filename))
+            {
                 return command4(sortType1, sortType2, filename);
             }
-            else {
-				cout << "Invalid file name!" << endl;
-				return 4;
-			}
+            else
+            {
+                cout << "Invalid file name!" << endl;
+                return 4;
+            }
         }
-            
+
         /*Prototype: [Execution file] - c[Algorithm 1][Algorithm 2][Given input]
         Ex : a.exe - c heap - sort merge - sort input.txt*/
-        
     }
-    else if (argc == 6) {
-        if (string(argv[1]) == "-a") {
-			int sortType = this->type(string(argv[2]));
+    else if (argc == 6)
+    {
+        if (string(argv[1]) == "-a")
+        {
+            int sortType = this->type(string(argv[2]));
             if (sortType == 0)
             {
                 return 2;
             }
             // ------------------------------------------------------------
             int outputType = convert_string_to_outputType(string(argv[5]));
-            if (outputType == -1) {
+            if (outputType == -1)
+            {
                 return 2;
-			}
-            // ------------------------------------------------------------
-			unsigned int arrSize = convert_string_to_num(string(argv[3]));
-            if (arrSize == 0) {
-                return 2;
-			}
-			// ------------------------------------------------------------
-            int inputOrder = convert_string_to_inputOrderType(string(argv[4]));
-            if (inputOrder == -1) {
-				return 2;
             }
-			return command2(sortType, arrSize, inputOrder, outputType);
+            // ------------------------------------------------------------
+            unsigned int arrSize = convert_string_to_num(string(argv[3]));
+            if (arrSize == 0)
+            {
+                return 2;
+            }
+            // ------------------------------------------------------------
+            int inputOrder = convert_string_to_inputOrderType(string(argv[4]));
+            if (inputOrder == -1)
+            {
+                return 2;
+            }
+            return command2(sortType, arrSize, inputOrder, outputType);
         }
-        else if (string(argv[1]) == "-c") {
+        else if (string(argv[1]) == "-c")
+        {
             int sortType1 = this->type(string(argv[2]));
             int sortType2 = this->type(string(argv[3]));
             if (sortType1 == 0 || sortType2 == 0 || sortType1 == sortType2)
@@ -185,13 +199,15 @@ int Sort::run(int argc, char* argv[])
             }
             // ------------------------------------------------------------
             unsigned int arrSize = convert_string_to_num(string(argv[4]));
-            if (arrSize == 0) {
-				cout << "Invalid size! Pls input a positive integer" << endl;
-				return 5;
-			}
+            if (arrSize == 0)
+            {
+                cout << "Invalid size! Pls input a positive integer" << endl;
+                return 5;
+            }
             // ------------------------------------------------------------
-			int inputOrder = convert_string_to_inputOrderType(string(argv[5]));
-            if (inputOrder == -1) {
+            int inputOrder = convert_string_to_inputOrderType(string(argv[5]));
+            if (inputOrder == -1)
+            {
                 cout << "Invalid data order!" << endl;
                 return 5;
             }
@@ -202,7 +218,7 @@ int Sort::run(int argc, char* argv[])
         [Output parameter(s)]
         Ex : a.exe - a selection - sort 50 - rand - time*/
 
-        //command5();
+        // command5();
         /*Prototype: [Execution file] - c[Algorithm 1][Algorithm 2][Input size]
         [Input order]
         Ex : a.exe - c quick - sort merge - sort 100000 - nsorted*/
@@ -212,25 +228,22 @@ int Sort::run(int argc, char* argv[])
 
 void Sort::experiment()
 {
-    int* a = nullptr;
-    ofstream ofs("result.csv");
+    int *a = nullptr;
+    ofstream ofs("data.csv");
     ofs << "DataOrder,DataSize,SortName,Comparison,RunTime" << endl;
     cout << "DataOrder,DataSize,SortName,Comparison,RunTime" << endl;
     for (int i = 0; i < 4; i++)
     {
         for (int j = 0; j < 6; j++)
         {
-            for (int k = 1; k < 2; k++)
+            for (int k = 0; k < 2; k++)
             {
                 a = new int[dataSize[j]];
                 GenerateData(a, dataSize[j], i);
                 setArr(a, dataSize[j]);
-                auto start = std::chrono::high_resolution_clock::now();
                 sort(k + 1);
-                auto end = std::chrono::high_resolution_clock::now();
-                this->runTime = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
-                unsigned long long int comparison = getComparison();
-                unsigned long long int runTime = getRunningTime();
+                unsigned long long comparison = getComparison();
+                unsigned long long runTime = getRunningTime();
                 ofs << dataOrder[i] << "," << dataSize[j] << "," << sortName[k] << "," << comparison << "," << runTime << endl;
                 cout << dataOrder[i] << "," << dataSize[j] << "," << sortName[k] << "," << comparison << "," << runTime << endl;
                 reset();
@@ -250,8 +263,8 @@ Sort::~Sort()
     this->runTime = 0;
 }
 
-
-void Sort::selectionSort_runTime(int* arr, int size) {
+void Sort::selectionSort_runTime(int *arr, int size)
+{
     int minIndex;
     for (int i = 0; i < size - 1; i++)
     {
@@ -266,7 +279,8 @@ void Sort::selectionSort_runTime(int* arr, int size) {
     }
 }
 
-void Sort::selectionSort_comparison(int* arr, int size) {
+void Sort::selectionSort_comparison(int *arr, int size)
+{
     int minIndex;
     for (int i = 0; ++this->comparison && i < size - 1; i++)
     {
@@ -281,7 +295,23 @@ void Sort::selectionSort_comparison(int* arr, int size) {
     }
 }
 
-void Sort::insertionSort(int* arr, int size)
+void Sort::insertionSort_comparison(int *arr, int size)
+{
+    int key, j;
+    for (int i = 1; ++this->comparison && i < size; i++)
+    {
+        key = arr[i];
+        j = i - 1;
+        while (++this->comparison && j >= 0 && ++this->comparison && arr[j] > key)
+        {
+            arr[j + 1] = arr[j];
+            j--;
+        }
+        arr[j + 1] = key;
+    }
+}
+
+void Sort::insertionSort_runTime(int *arr, int size)
 {
     int key, j;
     for (int i = 1; i < size; i++)
@@ -290,7 +320,6 @@ void Sort::insertionSort(int* arr, int size)
         j = i - 1;
         while (j >= 0 && arr[j] > key)
         {
-            this->comparison++;
             arr[j + 1] = arr[j];
             j--;
         }
@@ -300,76 +329,111 @@ void Sort::insertionSort(int* arr, int size)
 
 void Sort::selectionSort()
 {
-    /*if (type == 0) {
-        auto start = std::chrono::high_resolution_clock::now();
-        selectionSort_runTime(this->arr, this->size);
-        auto end = std::chrono::high_resolution_clock::now();
-        this->runTime = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
-    }
-    else if (type == 1) {
-		selectionSort_comparison(this->arr, this->size);
-	}*/
+    // Create copy array
+    int *copyArr = new int[this->size];
+    for (int i = 0; i < this->size; i++)
+        copyArr[i] = this->arr[i];
+    // Calculate running time
+    auto start = std::chrono::high_resolution_clock::now();
+    selectionSort_runTime(this->arr, this->size);
+    auto end = std::chrono::high_resolution_clock::now();
+    this->runTime = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+    // cout << isAscending(this->arr, this->size) << endl;
+    // Reset array
+    setArr(copyArr, this->size);
+    // Calculate comparison
+    selectionSort_comparison(this->arr, this->size);
+    // cout << isAscending(this->arr, this->size) << endl;
     return;
 }
 
 void Sort::insertionSort()
 {
-    return insertionSort(this->arr, this->size);
-}
-
-void Sort::bubbleSort() {
+    // Create copy array
+    int *copyArr = new int[this->size];
+    for (int i = 0; i < this->size; i++)
+        copyArr[i] = this->arr[i];
+    // Calculate running time
+    auto start = std::chrono::high_resolution_clock::now();
+    insertionSort_runTime(this->arr, this->size);
+    auto end = std::chrono::high_resolution_clock::now();
+    this->runTime = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+    // cout << isAscending(this->arr, this->size) << endl;
+    // Reset array
+    setArr(copyArr, this->size);
+    // Calculate comparison
+    insertionSort_comparison(this->arr, this->size);
+    // cout << isAscending(this->arr, this->size) << endl;
     return;
 }
 
-void Sort::shakerSort() {
-	return;
+void Sort::bubbleSort()
+{
+    return;
 }
 
-void Sort::shellSort() {
-	return;
+void Sort::shakerSort()
+{
+    return;
 }
 
-void Sort::heapSort() {
-	return;
+void Sort::shellSort()
+{
+    return;
 }
 
-void Sort::mergeSort() {
-	return;
+void Sort::heapSort()
+{
+    return;
 }
 
-void Sort::quickSort() {
-	return;
+void Sort::mergeSort()
+{
+    return;
 }
 
-void Sort::countingSort() {
-	return;
+void Sort::quickSort()
+{
+    return;
 }
 
-void Sort::radixSort() {
-	return;
+void Sort::countingSort()
+{
+    return;
 }
 
-void Sort::flashSort() {
-	return;
+void Sort::radixSort()
+{
+    return;
 }
 
-int Sort::command1(int sortType, string filename, int outputType) {
+void Sort::flashSort()
+{
+    return;
+}
+
+int Sort::command1(int sortType, string filename, int outputType)
+{
     return 1;
 }
 
-int Sort::command2(int sortType, unsigned int arrSize, int inputOrder, int outputType) {
+int Sort::command2(int sortType, unsigned int arrSize, int inputOrder, int outputType)
+{
     return 2;
 }
 
-int Sort::command3(int sortType, unsigned int arrSize, int outputType) {
+int Sort::command3(int sortType, unsigned int arrSize, int outputType)
+{
     return 3;
 }
 
-int Sort::command4(int sortType1, int sortType2, string filename) {
+int Sort::command4(int sortType1, int sortType2, string filename)
+{
     return 4;
 }
 
-int Sort::command5(int sortType1, int sortType2, unsigned int arrSize, int inputOrder) {
+int Sort::command5(int sortType1, int sortType2, unsigned int arrSize, int inputOrder)
+{
     return 5;
 }
 
@@ -430,39 +494,52 @@ void GenerateData(int a[], int n, int dataType)
     case 3: // gần như có thứ tự
         GenerateNearlySortedData(a, n);
         break;
-    default:  
+    default:
         printf("Error: unknown data type!\n");
     }
 }
 
-unsigned int convert_string_to_num(string s) {
+unsigned int convert_string_to_num(string s)
+{
     unsigned int num = 0;
-    for (int i = 0; i < s.length(); i++) {
+    for (int i = 0; i < s.length(); i++)
+    {
         if (s[i] >= '0' && s[i] <= '9')
-		    num = num * 10 + (s[i] - '0');
-        else {
+            num = num * 10 + (s[i] - '0');
+        else
+        {
             return 0;
         }
-	}
-	return num;
+    }
+    return num;
 }
 
-int convert_string_to_outputType(string s) {
+int convert_string_to_outputType(string s)
+{
     for (int i = 0; i < 3; i++)
         if (s == outputParameter[i])
             return i;
     return -1;
 }
 
-bool isFileExist(string fileName) {
-	ifstream infile(fileName);
-	return infile.good();
+bool isFileExist(string fileName)
+{
+    ifstream infile(fileName);
+    return infile.good();
 }
 
-int convert_string_to_inputOrderType(string s) {
+int convert_string_to_inputOrderType(string s)
+{
     for (int i = 0; i < 4; i++)
         if (dataOrder[i] == s)
             return i;
     return -1;
 }
 
+bool isAscending(int *arr, int size)
+{
+    for (int i = 0; i < size - 1; i++)
+        if (arr[i] > arr[i + 1])
+            return false;
+    return true;
+}
