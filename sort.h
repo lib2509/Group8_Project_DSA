@@ -13,7 +13,7 @@ const unsigned int dataSize[6] = {10000, 30000, 50000, 100000, 300000, 500000};
 const string dataOrder[4] = {"-rand", "-sorted", "-rev", "-nsorted"};
 const string sortName[11] = {"selection-sort", "insertion-sort", "bubble-sort", "shaker-sort", "shell-sort", "heap-sort", "merge-sort", "quick-sort", "counting-sort", "radix-sort", "flash-sort"};
 const string outputParameter[3] = {"-time", "-comp", "-both"};
-
+const string data_order[4] = {"Randomize", "Sorted", "Reverse", "Nearly Sorted"};
 class Sort
 {
 private:
@@ -56,6 +56,8 @@ public:
     int command5(int sortType1, int sortType2, unsigned int arrSize, int inputOrder);
     void experiment();
     // ---------------------------------------------------------------------------------------------
+    void printOutput(int outputType);
+    void writeArrayToFile(string filename);
     ~Sort();
 };
 

@@ -442,27 +442,166 @@ void Sort::flashSort()
 
 int Sort::command1(int sortType, string filename, int outputType)
 {
+    ifstream ifs(filename);
+    if (!ifs.is_open())
+    {
+        cout << "Cannot open file " << filename << endl;
+        return 1;
+    }
+    ifs >> this->size;
+    this->arr = new int[this->size];
+    for (int i = 0; i < this->size; i++)
+        ifs >> this->arr[i];
+    ifs.close();
+    sort(sortType);
+    cout << "ALGORITHM MODE\n";
+    cout << "Algorithm: " << sortName[sortType - 1] << endl;
+    cout << "Input file: " << filename << endl;
+    cout << "Input size: " << this->size << endl;
+    cout << "-----------------------------------\n";
+    printOutput(outputType);
+    cout << endl;
+    writeArrayToFile("output.txt");
+    reset();
     return 1;
 }
 
 int Sort::command2(int sortType, unsigned int arrSize, int inputOrder, int outputType)
 {
-    return 2;
+    int *arr = new int[arrSize];
+    GenerateData(arr, arrSize, inputOrder);
+    setArr(arr, arrSize);
+    sort(sortType);
+    cout << "ALGORITHM MODE\n";
+    cout << "Algorithm: " << sortName[sortType - 1] << endl;
+    cout << "Input size: " << this->size << endl;
+    cout << "Input order: " << data_order[inputOrder] << endl;
+    cout << "-----------------------------------\n";
+    printOutput(outputType);
+    cout << endl;
+    writeArrayToFile("output.txt");
+    reset();
+    return 1;
 }
 
 int Sort::command3(int sortType, unsigned int arrSize, int outputType)
 {
+    cout << "ALGORITHM MODE\n";
+    cout << "Algorithm: " << sortName[sortType - 1] << endl;
+    cout << "Input size: " << arrSize << endl;
+
+    for (int i = 0; i < 4; i++)
+    {
+        string filename = "input_" + to_string(i + 1) + ".txt";
+        int *arr = new int[arrSize];
+        GenerateData(arr, arrSize, i);
+        setArr(arr, arrSize);
+        writeArrayToFile(filename);
+        sort(sortType);
+        cout << endl;
+        cout << "Input order: " << data_order[i] << endl;
+        cout << "-----------------------------------\n";
+        printOutput(outputType);
+        reset();
+    }
     return 3;
 }
 
 int Sort::command4(int sortType1, int sortType2, string filename)
 {
+    ifstream ifs(filename);
+    if (!ifs.is_open())
+    {
+        cout << "Cannot open file " << filename << endl;
+        return 1;
+    }
+    ifs >> this->size;
+    this->arr = new int[this->size];
+    for (int i = 0; i < this->size; i++)
+        ifs >> this->arr[i];
+    writeArrayToFile("input.txt");
+    unsigned int size = this->size;
+    int *copyArr = new int[size];
+    for (int i = 0; i < size; i++)
+        copyArr[i] = this->arr[i];
+    ifs.close();
+    sort(sortType1);
+    unsigned long long int runTime1 = this->runTime;
+    unsigned long long int comparison1 = this->comparison;
+    reset();
+    setArr(copyArr, size);
+    sort(sortType2);
+    unsigned long long int runTime2 = this->runTime;
+    unsigned long long int comparison2 = this->comparison;
+    reset();
+    cout << "COMPARE MODE\n";
+    cout << "Algorithm: " << sortName[sortType1 - 1] << " | " << sortName[sortType2 - 1] << endl;
+    cout << "Input file: " << filename << endl;
+    cout << "Input size: " << size << endl;
+    cout << "----------------------------\n";
+    cout << "Running time: " << sortName[sortType1 - 1] << " Time " << runTime1 << " | "
+         << sortName[sortType2 - 1] << " Time " << runTime2 << endl;
+    cout << "Comparison: " << sortName[sortType1 - 1] << " Comp " << comparison1 << " | "
+         << sortName[sortType2 - 1] << " Comp " << comparison2 << endl;
+    cout << endl;
     return 4;
 }
 
 int Sort::command5(int sortType1, int sortType2, unsigned int arrSize, int inputOrder)
 {
+    cout << "COMPARE MODE\n";
+    cout << "Algorithm: " << sortName[sortType1 - 1] << " | " << sortName[sortType2 - 1] << endl;
+    cout << "Input size: " << arrSize << endl;
+    cout << "Input order: " << data_order[inputOrder] << endl;
+    cout << "----------------------------------------\n";
+    int *arr = new int[arrSize];
+    GenerateData(arr, arrSize, inputOrder);
+    setArr(arr, arrSize);
+    writeArrayToFile("input.txt");
+    int *copyArr = new int[arrSize];
+    for (int i = 0; i < arrSize; i++)
+        copyArr[i] = this->arr[i];
+    sort(sortType1);
+    unsigned long long int runTime1 = this->runTime;
+    unsigned long long int comparison1 = this->comparison;
+    reset();
+    setArr(copyArr, arrSize);
+    sort(sortType2);
+    unsigned long long int runTime2 = this->runTime;
+    unsigned long long int comparison2 = this->comparison;
+    reset();
+    cout << "Running time: " << sortName[sortType1 - 1] << " Time " << runTime1 << " | "
+         << sortName[sortType2 - 1] << " Time " << runTime2 << endl;
+    cout << "Comparison: " << sortName[sortType1 - 1] << " Comp " << comparison1 << " | "
+         << sortName[sortType2 - 1] << " Comp " << comparison2 << endl;
+    cout << endl;
     return 5;
+}
+
+void Sort::writeArrayToFile(string filename)
+{
+    ofstream ofs(filename);
+    ofs << this->size << endl;
+    for (int i = 0; i < this->size; i++)
+        ofs << this->arr[i] << " ";
+    ofs.close();
+}
+
+void Sort::printOutput(int outputType)
+{
+    if (outputType == 0)
+    {
+        cout << "Running time: " << this->runTime << " ms" << endl;
+    }
+    else if (outputType == 1)
+    {
+        cout << "Comparison: " << this->comparison << endl;
+    }
+    else if (outputType == 2)
+    {
+        cout << "Running time: " << this->runTime << " ms" << endl;
+        cout << "Comparison: " << this->comparison << endl;
+    }
 }
 
 void GenerateRandomData(int a[], int n)
