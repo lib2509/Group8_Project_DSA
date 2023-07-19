@@ -97,6 +97,18 @@ int Sort::run(int argc, char *argv[])
         experiment();
         return 0;
     }
+    else if (argc == 2)
+        if (string(argv[1]) == "-help")
+        {
+            printUserManual();
+            return 2;
+        }
+        else
+        {
+            cout << "Invalid command!" << endl;
+            printInvalidCommand();
+            return 1;
+        }
     else if (argc == 5)
     {
         if (string(argv[1]) == "-a")
@@ -105,6 +117,7 @@ int Sort::run(int argc, char *argv[])
             if (sortType == 0)
             {
                 cout << "Invalid sort name!" << endl;
+                printInvalidCommand();
                 return 1;
             }
             // ------------------------------------------------------------
@@ -112,6 +125,7 @@ int Sort::run(int argc, char *argv[])
             if (outputType == -1)
             {
                 cout << "Invalid output type!" << endl;
+                printInvalidCommand();
                 return 1;
             }
             // ------------------------------------------------------------
@@ -126,6 +140,7 @@ int Sort::run(int argc, char *argv[])
             if (arrSize == 0)
             {
                 cout << "Invalid size! Pls input a positive integer" << endl;
+                printInvalidCommand();
                 return 1;
             }
             // ------------------------------------------------------------
@@ -141,6 +156,7 @@ int Sort::run(int argc, char *argv[])
             if (sortType1 == 0 || sortType2 == 0 || sortType1 == sortType2)
             {
                 cout << "Invalid sort name!" << endl;
+                printInvalidCommand();
                 return 4;
             }
             // ------------------------------------------------------------
@@ -152,6 +168,7 @@ int Sort::run(int argc, char *argv[])
             else
             {
                 cout << "Invalid file name!" << endl;
+                printInvalidCommand();
                 return 4;
             }
         }
@@ -166,24 +183,32 @@ int Sort::run(int argc, char *argv[])
             int sortType = this->type(string(argv[2]));
             if (sortType == 0)
             {
+                cout << "Invalid sort name!" << endl;
+                printInvalidCommand();
                 return 2;
             }
             // ------------------------------------------------------------
             int outputType = convert_string_to_outputType(string(argv[5]));
             if (outputType == -1)
             {
+                cout << "Invalid output type!" << endl;
+                printInvalidCommand();
                 return 2;
             }
             // ------------------------------------------------------------
             unsigned int arrSize = convert_string_to_num(string(argv[3]));
             if (arrSize == 0)
             {
+                cout << "Invalid size! Pls input a positive integer" << endl;
+                printInvalidCommand();
                 return 2;
             }
             // ------------------------------------------------------------
             int inputOrder = convert_string_to_inputOrderType(string(argv[4]));
             if (inputOrder == -1)
             {
+                cout << "Invalid input order!" << endl;
+                printInvalidCommand();
                 return 2;
             }
             return command2(sortType, arrSize, inputOrder, outputType);
@@ -195,6 +220,7 @@ int Sort::run(int argc, char *argv[])
             if (sortType1 == 0 || sortType2 == 0 || sortType1 == sortType2)
             {
                 cout << "Invalid sort name!" << endl;
+                printInvalidCommand();
                 return 5;
             }
             // ------------------------------------------------------------
@@ -202,6 +228,7 @@ int Sort::run(int argc, char *argv[])
             if (arrSize == 0)
             {
                 cout << "Invalid size! Pls input a positive integer" << endl;
+                printInvalidCommand();
                 return 5;
             }
             // ------------------------------------------------------------
@@ -209,6 +236,7 @@ int Sort::run(int argc, char *argv[])
             if (inputOrder == -1)
             {
                 cout << "Invalid data order!" << endl;
+                printInvalidCommand();
                 return 5;
             }
             return command5(sortType1, sortType2, arrSize, inputOrder);
@@ -542,4 +570,62 @@ bool isAscending(int *arr, int size)
         if (arr[i] > arr[i + 1])
             return false;
     return true;
+}
+
+void printUserManual()
+{
+    cout << "---------------------------------------------------------------\n\n";
+    cout << "COMMAND LINE ARGUMENTS\n\n";
+    cout << "Command 1: Run a sorting algorithm on the given input data\n"
+         << "Prototype : [Execution file] - a[Algorithm][Given input][Output parameter(s)]\n\n"
+         << "Ex : a.exe - a radix - sort input.txt - both\n\n";
+    cout << "---------------------------------------------------------------\n\n";
+    cout << "Command 2: Run a sorting algorithm on the generated input data\n"
+         << "Prototype : [Execution file] - a[Algorithm][Data size][Input order][Output parameter(s)]\n\n"
+         << "Ex : a.exe - a radix - sort 1000 - random - both\n\n";
+    cout << "---------------------------------------------------------------\n\n";
+    cout << "Command 3: Run a sorting algorithm on the generated input data\n"
+         << "Prototype : [Execution file] - a[Algorithm][Data size][Output parameter(s)]\n"
+         << "Ex : a.exe - a radix - sort 1000 - both\n\n";
+    cout << "---------------------------------------------------------------\n\n";
+    cout << "Command 4: Compare two sorting algorithms on the given input data\n"
+         << "Prototype : [Execution file] - a[Algorithm 1][Algorithm 2][Given input]\n"
+         << "Ex : a.exe - a radix - sort insertion - sort input.txt\n\n";
+    cout << "---------------------------------------------------------------\n\n";
+    cout << "Command 5: Compare two sorting algorithms on the generated input data\n"
+         << "Prototype : [Execution file] - a[Algorithm 1][Algorithm 2][Data size][Input order]\n"
+         << "Ex : a.exe - a radix - sort insertion - sort 1000 - random\n\n";
+    cout << "---------------------------------------------------------------\n";
+    cout << "---------------------------------------------------------------\n";
+    cout << "INPUT ARGUMENTS: The following arguments are applied for both modes.\n\n";
+    cout << "1. Mode:\n"
+         << "- a : Algorithm mode\n"
+         << "- c : Comparison mode\n\n";
+    cout << "---------------------------------------------------------------\n\n";
+    cout << "2: Algorithm name: Lowercase, words are connected by \" - \":\n";
+    for (int i = 0; i < 11; i++)
+        cout << "+ " << sortName[i] << "\n";
+    cout << "---------------------------------------------------------------\n\n";
+    cout << "3. Input size: an integer number <= 1,000,000\n\n";
+    cout << "---------------------------------------------------------------\n\n";
+    cout << "4. Input order: Lowercase, words are connected by \" - \":\n";
+    cout << "+ random : randomized data\n"
+         << "+ nsorted : nearly sorted data\n"
+         << "+ sorted : sorted data\n"
+         << "+ rev : reverse sorted data\n";
+    cout << "---------------------------------------------------------------\n\n";
+    cout << "5. Output parameter(s): Lowercase, words are connected by \" - \" :\n";
+    cout << "+ time : algorithms's running time.\n"
+         << "+ comp : number of comparisions.\n"
+         << "+ both : both above options.\n\n";
+    cout << "---------------------------------------------------------------\n\n";
+    cout << "6. Given input(file): Path to the input file.The file format is as follows.\n"
+         << "+ 1st line : an integer n, indicating the number of elements in the input data\n"
+         << "+ 2nd line : n integers, separated by a single space.\n\n";
+    cout << "---------------------------------------------------------------\n\n";
+}
+
+void printInvalidCommand()
+{
+    cout << "Please type \"sort.exe -help\" for help.\n";
 }

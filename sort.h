@@ -92,3 +92,7 @@ bool isFileExist(string fileName);
 int convert_string_to_inputOrderType(string s);
 
 bool isAscending(int *arr, int size);
+
+void printUserManual();
+
+void printInvalidCommand();
