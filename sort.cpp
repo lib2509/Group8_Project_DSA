@@ -355,6 +355,63 @@ void Sort::insertionSort_runTime(int *arr, int size)
     }
 }
 
+
+void Sort::shellSort_runTime(int *arr, int size)
+{
+    // Start with a big gap, then reduce the gap
+    for (int gap = size/2; gap > 0; gap /= 2)
+    {
+        // Do a gapped insertion sort for this gap size.
+        // The first gap elements a[0..gap-1] are already in gapped order
+        // keep adding one more element until the entire array is
+        // gap sorted 
+        for (int i = gap; i < size; i++)
+        {
+            // add a[i] to the elements that have been gap sorted
+            // save a[i] in temp and make a hole at position i
+            int temp = arr[i];
+  
+            // shift earlier gap-sorted elements up until the correct 
+            // location for a[i] is found
+            int j;            
+            for (j = i; j >= gap && arr[j - gap] > temp; j -= gap)
+                arr[j] = arr[j - gap];
+              
+            //  put temp (the original a[i]) in its correct location
+            arr[j] = temp;
+        }
+    }
+    return;
+}
+
+void Sort::shellSort_comparison(int *arr, int size)
+{
+    // Start with a big gap, then reduce the gap
+    for (int gap = size/2; ++this->comparison && gap > 0; gap /= 2)
+    {
+        // Do a gapped insertion sort for this gap size.
+        // The first gap elements a[0..gap-1] are already in gapped order
+        // keep adding one more element until the entire array is
+        // gap sorted 
+        for (int i = gap; ++this->comparison && i < size; i++)
+        {
+            // add a[i] to the elements that have been gap sorted
+            // save a[i] in temp and make a hole at position i
+            int temp = arr[i];
+  
+            // shift earlier gap-sorted elements up until the correct 
+            // location for a[i] is found
+            int j;            
+            for (j = i; ++this->comparison && j >= gap && ++this->comparison && arr[j - gap] > temp; j -= gap)
+                arr[j] = arr[j - gap];
+              
+            //  put temp (the original a[i]) in its correct location
+            arr[j] = temp;
+        }
+    }
+    return;
+}
+
 void Sort::selectionSort()
 {
     // Create copy array
@@ -407,6 +464,21 @@ void Sort::shakerSort()
 
 void Sort::shellSort()
 {
+    // Create copy array
+    int *copyArr = new int[this->size];
+    for (int i = 0; i < this->size; i++)
+        copyArr[i] = this->arr[i];
+    // Calculate running time
+    auto start = std::chrono::high_resolution_clock::now();
+    shellSort_runTime(this->arr, this->size);
+    auto end = std::chrono::high_resolution_clock::now();
+    this->runTime = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+    // cout << isAscending(this->arr, this->size) << endl;
+    // Reset array
+    setArr(copyArr, this->size);
+    // Calculate comparison
+    shellSort_comparison(this->arr, this->size);
+    // cout << isAscending(this->arr, this->size) << endl;
     return;
 }
 
