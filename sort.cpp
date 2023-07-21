@@ -412,6 +412,98 @@ void Sort::shellSort_comparison(int *arr, int size)
     return;
 }
 
+void Sort::countingSort_runTime(int *arr, int size)
+{
+    int *output = new int[size]; // The output will have sorted input array
+    int max = arr[0];
+    int min = arr[0];
+
+	int i;
+    for (i = 1; i < size; i++)
+    {
+        if(arr[i] > max)
+            max = arr[i]; // Maximum value in array
+        else if(arr[i] < min)
+            min = arr[i]; // Minimum value in array
+    }
+
+    int k = max - min + 1; // Size of count array
+    int *count_array = new int[k]; // Create a count_array to store count of each individual input value
+    
+    for (i = 0; i < k; i++) {
+        count_array[i] = 0;
+    }
+
+    for (i = 0; i < size; i++) {
+        count_array[arr[i] - min]++; // Store count of each individual input value
+    }
+
+    /*Change count_array so that count_array now contains actual
+     position of input values in output array*/
+    for (i = 1; i < k; i++) {
+        count_array[i] += count_array[i-1];
+    }
+
+    // Populate output array using count_array and input array
+    for (i = 0; i < size; i++) {
+        output[count_array[arr[i] - min] - 1] = arr[i];
+        count_array[arr[i] - min]--;
+    }
+
+    for (i = 0; i < size; i++) {
+        arr[i] = output[i]; // Copy the output array to input, so that input now contains sorted values
+    }
+
+    delete[] output;
+    delete[] count_array;
+}
+
+void Sort::countingSort_comparison(int *arr, int size)
+{
+    int *output = new int[size]; // The output will have sorted input array
+    int max = arr[0];
+    int min = arr[0];
+
+	int i;
+    for (i = 1; ++this->comparison && i < size; i++)
+    {
+        if(++this->comparison && arr[i] > max)
+            max = arr[i]; // Maximum value in array
+        else if(++this->comparison && arr[i] < min)
+            min = arr[i]; // Minimum value in array
+    }
+
+    int k = max - min + 1; // Size of count array
+    int *count_array = new int[k]; // Create a count_array to store count of each individual input value
+    
+    for (i = 0; ++this->comparison && i < k; i++) {
+        count_array[i] = 0;
+    }
+
+    for (i = 0; ++this->comparison && i < size; i++) {
+        count_array[arr[i] - min]++; // Store count of each individual input value
+    }
+
+    /*Change count_array so that count_array now contains actual
+     position of input values in output array*/
+    for (i = 1; ++this->comparison && i < k; i++) {
+        count_array[i] += count_array[i-1];
+    }
+
+    // Populate output array using count_array and input array
+    for (i = 0; ++this->comparison && i < size; i++) {
+        output[count_array[arr[i] - min] - 1] = arr[i];
+        count_array[arr[i] - min]--;
+    }
+
+    for (i = 0; ++this->comparison && i < size; i++) {
+        arr[i] = output[i]; // Copy the output array to input, so that input now contains sorted values
+    }
+
+    delete[] output;
+    delete[] count_array;
+}
+
 void Sort::selectionSort()
 {
     // Create copy array
@@ -499,6 +591,21 @@ void Sort::quickSort()
 
 void Sort::countingSort()
 {
+    // Create copy array
+    int *copyArr = new int[this->size];
+    for (int i = 0; i < this->size; i++)
+        copyArr[i] = this->arr[i];
+    // Calculate running time
+    auto start = std::chrono::high_resolution_clock::now();
+    countingSort_runTime(this->arr, this->size);
+    auto end = std::chrono::high_resolution_clock::now();
+    this->runTime = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+    // cout << isAscending(this->arr, this->size) << endl;
+    // Reset array
+    setArr(copyArr, this->size);
+    // Calculate comparison
+    countingSort_comparison(this->arr, this->size);
+    // cout << isAscending(this->arr, this->size) << endl;
     return;
 }
 
