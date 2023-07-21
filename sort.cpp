@@ -996,49 +996,49 @@ void printUserManual()
     cout << "---------------------------------------------------------------\n\n";
     cout << "COMMAND LINE ARGUMENTS\n\n";
     cout << "Command 1: Run a sorting algorithm on the given input data\n"
-         << "Prototype : [Execution file] - a[Algorithm][Given input][Output parameter(s)]\n\n"
-         << "Ex : a.exe - a radix - sort input.txt - both\n\n";
+         << "Prototype : [Execution file] -a [Algorithm] [Given input] [Output parameter(s)]\n\n"
+         << "Ex : a.exe -a radix-sort input.txt -both\n\n";
     cout << "---------------------------------------------------------------\n\n";
     cout << "Command 2: Run a sorting algorithm on the generated input data\n"
-         << "Prototype : [Execution file] - a[Algorithm][Data size][Input order][Output parameter(s)]\n\n"
-         << "Ex : a.exe - a radix - sort 1000 - random - both\n\n";
+         << "Prototype : [Execution file] -a [Algorithm] [Data size] [Input order] [Output parameter(s)]\n\n"
+         << "Ex : a.exe -a radix-sort 1000 -rand -both\n\n";
     cout << "---------------------------------------------------------------\n\n";
     cout << "Command 3: Run a sorting algorithm on the generated input data\n"
-         << "Prototype : [Execution file] - a[Algorithm][Data size][Output parameter(s)]\n"
-         << "Ex : a.exe - a radix - sort 1000 - both\n\n";
+         << "Prototype : [Execution file] -a [Algorithm] [Data size] [Output parameter(s)]\n"
+         << "Ex : a.exe -a radix-sort 1000 -both\n\n";
     cout << "---------------------------------------------------------------\n\n";
     cout << "Command 4: Compare two sorting algorithms on the given input data\n"
-         << "Prototype : [Execution file] - a[Algorithm 1][Algorithm 2][Given input]\n"
-         << "Ex : a.exe - a radix - sort insertion - sort input.txt\n\n";
+         << "Prototype : [Execution file] -a [Algorithm 1] [Algorithm 2] [Given input]\n"
+         << "Ex : a.exe -a radix-sort insertion-sort input.txt\n\n";
     cout << "---------------------------------------------------------------\n\n";
     cout << "Command 5: Compare two sorting algorithms on the generated input data\n"
-         << "Prototype : [Execution file] - a[Algorithm 1][Algorithm 2][Data size][Input order]\n"
-         << "Ex : a.exe - a radix - sort insertion - sort 1000 - random\n\n";
+         << "Prototype : [Execution file] -a [Algorithm 1] [Algorithm 2] [Data size] [Input order]\n"
+         << "Ex : a.exe -a radix-sort insertion-sort 1000 -rand\n\n";
     cout << "---------------------------------------------------------------\n";
     cout << "---------------------------------------------------------------\n";
     cout << "INPUT ARGUMENTS: The following arguments are applied for both modes.\n\n";
     cout << "1. Mode:\n"
-         << "- a : Algorithm mode\n"
-         << "- c : Comparison mode\n\n";
+         << "-a : Algorithm mode\n"
+         << "-c : Comparison mode\n\n";
     cout << "---------------------------------------------------------------\n\n";
-    cout << "2: Algorithm name: Lowercase, words are connected by \" - \":\n";
+    cout << "2: Algorithm name: Lowercase, words are connected by \"-\":\n";
     for (int i = 0; i < 11; i++)
         cout << "+ " << sortName[i] << "\n";
     cout << "---------------------------------------------------------------\n\n";
     cout << "3. Input size: an integer number <= 1,000,000\n\n";
     cout << "---------------------------------------------------------------\n\n";
-    cout << "4. Input order: Lowercase, words are connected by \" - \":\n";
-    cout << "+ random : randomized data\n"
+    cout << "4. Input order: Lowercase, words are connected by \"-\":\n";
+    cout << "+ rand : randomized data\n"
          << "+ nsorted : nearly sorted data\n"
          << "+ sorted : sorted data\n"
          << "+ rev : reverse sorted data\n";
     cout << "---------------------------------------------------------------\n\n";
-    cout << "5. Output parameter(s): Lowercase, words are connected by \" - \" :\n";
+    cout << "5. Output parameter(s): Lowercase, words are connected by \"-\" :\n";
     cout << "+ time : algorithms's running time.\n"
          << "+ comp : number of comparisions.\n"
          << "+ both : both above options.\n\n";
     cout << "---------------------------------------------------------------\n\n";
-    cout << "6. Given input(file): Path to the input file.The file format is as follows.\n"
+    cout << "6. Given input(file): Path to the input file. The file format is as follows:\n"
          << "+ 1st line : an integer n, indicating the number of elements in the input data\n"
          << "+ 2nd line : n integers, separated by a single space.\n\n";
     cout << "---------------------------------------------------------------\n\n";
