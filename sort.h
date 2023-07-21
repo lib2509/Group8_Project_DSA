@@ -30,6 +30,8 @@ private:
     void shellSort_comparison(int *arr, int size);
     void countingSort_runTime(int *arr, int size);
     void countingSort_comparison(int *arr, int size);
+    void flashSort_runTime(int *arr, int size);
+    void flashSort_comparison(int *arr, int size);
 
 public:
     Sort(int *arr = nullptr, unsigned int size = 0);
