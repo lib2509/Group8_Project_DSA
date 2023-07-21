@@ -505,7 +505,7 @@ void Sort::flashSort_runTime(int *arr, int size)
 		l[i] += l[i - 1];
     }
 
-	HoanVi(arr[max], arr[0]);
+	swap(arr[max], arr[0]);
 	int nmove = 0;
 	int j = 0;
 	int k = m - 1;
@@ -560,7 +560,7 @@ void Sort::flashSort_comparison(int *arr, int size)
 		l[i] += l[i - 1];
     }
 
-	HoanVi(arr[max], arr[0]);
+	swap(arr[max], arr[0]);
 	int nmove = 0;
 	int j = 0;
 	int k = m - 1;
