@@ -597,10 +597,10 @@ void Sort::selectionSort()
     for (int i = 0; i < this->size; i++)
         copyArr[i] = this->arr[i];
     // Calculate running time
-    auto start = std::chrono::high_resolution_clock::now();
+    auto start = chrono::high_resolution_clock::now();
     selectionSort_runTime(this->arr, this->size);
-    auto end = std::chrono::high_resolution_clock::now();
-    this->runTime = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+    auto end = chrono::high_resolution_clock::now();
+    this->runTime = chrono::duration_cast<chrono::milliseconds>(end - start).count();
     // cout << isAscending(this->arr, this->size) << endl;
     // Reset array
     setArr(copyArr, this->size);
@@ -617,10 +617,10 @@ void Sort::insertionSort()
     for (int i = 0; i < this->size; i++)
         copyArr[i] = this->arr[i];
     // Calculate running time
-    auto start = std::chrono::high_resolution_clock::now();
+    auto start = chrono::high_resolution_clock::now();
     insertionSort_runTime(this->arr, this->size);
-    auto end = std::chrono::high_resolution_clock::now();
-    this->runTime = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+    auto end = chrono::high_resolution_clock::now();
+    this->runTime = chrono::duration_cast<chrono::milliseconds>(end - start).count();
     // cout << isAscending(this->arr, this->size) << endl;
     // Reset array
     setArr(copyArr, this->size);
@@ -647,10 +647,10 @@ void Sort::shellSort()
     for (int i = 0; i < this->size; i++)
         copyArr[i] = this->arr[i];
     // Calculate running time
-    auto start = std::chrono::high_resolution_clock::now();
+    auto start = chrono::high_resolution_clock::now();
     shellSort_runTime(this->arr, this->size);
-    auto end = std::chrono::high_resolution_clock::now();
-    this->runTime = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+    auto end = chrono::high_resolution_clock::now();
+    this->runTime = chrono::duration_cast<chrono::milliseconds>(end - start).count();
     // cout << isAscending(this->arr, this->size) << endl;
     // Reset array
     setArr(copyArr, this->size);
@@ -682,10 +682,10 @@ void Sort::countingSort()
     for (int i = 0; i < this->size; i++)
         copyArr[i] = this->arr[i];
     // Calculate running time
-    auto start = std::chrono::high_resolution_clock::now();
+    auto start = chrono::high_resolution_clock::now();
     countingSort_runTime(this->arr, this->size);
-    auto end = std::chrono::high_resolution_clock::now();
-    this->runTime = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+    auto end = chrono::high_resolution_clock::now();
+    this->runTime = chrono::duration_cast<chrono::milliseconds>(end - start).count();
     // cout << isAscending(this->arr, this->size) << endl;
     // Reset array
     setArr(copyArr, this->size);
@@ -707,10 +707,10 @@ void Sort::flashSort()
     for (int i = 0; i < this->size; i++)
         copyArr[i] = this->arr[i];
     // Calculate running time
-    auto start = std::chrono::high_resolution_clock::now();
+    auto start = chrono::high_resolution_clock::now();
     flashSort_runTime(this->arr, this->size);
-    auto end = std::chrono::high_resolution_clock::now();
-    this->runTime = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+    auto end = chrono::high_resolution_clock::now();
+    this->runTime = chrono::duration_cast<chrono::milliseconds>(end - start).count();
     // cout << isAscending(this->arr, this->size) << endl;
     // Reset array
     setArr(copyArr, this->size);
