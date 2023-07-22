@@ -972,7 +972,9 @@ int convert_string_to_outputType(string s)
 bool isFileExist(string fileName)
 {
     ifstream infile(fileName);
-    return infile.good();
+    bool check = infile.good();
+    infile.close();
+    return check;
 }
 
 int convert_string_to_inputOrderType(string s)
