@@ -811,19 +811,21 @@ void Sort::shellSort()
 {
     // Create copy array
     int *copyArr = new int[this->size];
-    for (int i = 0; i < this->size; i++)
+    for (int i = 0; i < this->size; i++) {
         copyArr[i] = this->arr[i];
+    }
     // Calculate running time
     auto start = chrono::high_resolution_clock::now();
     shellSort_runTime(this->arr, this->size);
     auto end = chrono::high_resolution_clock::now();
     this->runTime = chrono::duration_cast<chrono::milliseconds>(end - start).count();
-    // cout << isAscending(this->arr, this->size) << endl;
+    
     // Reset array
     setArr(copyArr, this->size);
+
     // Calculate comparison
     shellSort_comparison(this->arr, this->size);
-    // cout << isAscending(this->arr, this->size) << endl;
+    
     return;
 }
 
@@ -846,19 +848,22 @@ void Sort::countingSort()
 {
     // Create copy array
     int *copyArr = new int[this->size];
-    for (int i = 0; i < this->size; i++)
+    for (int i = 0; i < this->size; i++) {
         copyArr[i] = this->arr[i];
+    }
+    
     // Calculate running time
     auto start = chrono::high_resolution_clock::now();
     countingSort_runTime(this->arr, this->size);
     auto end = chrono::high_resolution_clock::now();
     this->runTime = chrono::duration_cast<chrono::milliseconds>(end - start).count();
-    // cout << isAscending(this->arr, this->size) << endl;
+
     // Reset array
     setArr(copyArr, this->size);
+
     // Calculate comparison
     countingSort_comparison(this->arr, this->size);
-    // cout << isAscending(this->arr, this->size) << endl;
+
     return;
 }
 
@@ -886,19 +891,21 @@ void Sort::flashSort()
 {
     // Create copy array
     int *copyArr = new int[this->size];
-    for (int i = 0; i < this->size; i++)
+    for (int i = 0; i < this->size; i++) {
         copyArr[i] = this->arr[i];
+    }
     // Calculate running time
     auto start = chrono::high_resolution_clock::now();
     flashSort_runTime(this->arr, this->size);
     auto end = chrono::high_resolution_clock::now();
     this->runTime = chrono::duration_cast<chrono::milliseconds>(end - start).count();
-    // cout << isAscending(this->arr, this->size) << endl;
+
     // Reset array
     setArr(copyArr, this->size);
+
     // Calculate comparison
     flashSort_comparison(this->arr, this->size);
-    // cout << isAscending(this->arr, this->size) << endl;
+    
     return;
 }
 
