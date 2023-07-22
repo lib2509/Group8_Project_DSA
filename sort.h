@@ -24,12 +24,25 @@ private:
     //---------------------------------------------------------------------------------------------
     void selectionSort_runTime(int *arr, int size);
     void selectionSort_comparison(int *arr, int size);
+
     void insertionSort_runTime(int *arr, int size);
     void insertionSort_comparison(int *arr, int size);
+
+    void bubbleSort_runTime(int *arr, int size);
+    void bubbleSort_comparison(int *arr, int size);
+
+    void shakerSort_runTime(int *arr, int size);
+    void shakerSort_comparison(int *arr, int size);
+
     void shellSort_runTime(int *arr, int size);
     void shellSort_comparison(int *arr, int size);
+
     void countingSort_runTime(int *arr, int size);
     void countingSort_comparison(int *arr, int size);
+
+    void radixSort_runTime(int *arr, int size);
+    void radixSort_comparison(int *arr, int size);
+
     void flashSort_runTime(int *arr, int size);
     void flashSort_comparison(int *arr, int size);
 

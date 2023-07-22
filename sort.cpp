@@ -355,6 +355,73 @@ void Sort::insertionSort_runTime(int *arr, int size)
     }
 }
 
+void Sort::bubbleSort_runTime(int *arr, int size) {
+    for (int i = 0; i < size - 1; i++) {
+        // Push the biggest value to the right of the array
+        for (int j = 0; j < size - 1 - i; j++) {
+            if (arr[j] > arr[j + 1]) swap(arr[j], arr[j + 1]);
+        }
+    }
+}
+
+void Sort::bubbleSort_comparison(int *arr, int size) {
+    for (int i = 0; ++(this -> comparison) && i < size - 1; i++) {
+        // Push the biggest value to the right of the array
+        for (int j = 0; ++(this -> comparison) && j < size - 1 - i; j++) {
+            if ( ++(this -> comparison) && (arr[j] > arr[j + 1])) swap(arr[j], arr[j + 1]);
+        }
+    }
+}
+
+void Sort::shakerSort_runTime(int *arr, int size) {
+    int left, right, k, i;
+    left = 0; 
+    right = size - 1;
+    k = size - 1;
+    
+    while (left < right) {
+        // Start from the right side of the array
+        for (i = right; i > left; i--) {
+            if (arr[i] < arr[i - 1]) {
+                swap(arr[i], arr[i - 1]);
+                k = i;
+            }
+        }
+        left = k;
+        // Then from the left side of the array
+        for (i = left; i < right; i++) {
+            if (arr[i] > arr[i + 1]) {
+                swap(arr[i], arr[i + 1]);
+                k = i;
+            }
+        }
+        right = k;
+    }
+}
+
+void Sort::shakerSort_comparison(int *arr, int size) {
+    int left, right, k, i;
+    left = 0; 
+    right = size - 1;
+    k = size - 1;
+    
+    while ( ++(this -> comparison) && left < right) {
+        for (i = right; ++(this -> comparison) && i > left; i--) {
+            if ( ++(this -> comparison) && arr[i] < arr[i - 1]) {
+                swap(arr[i], arr[i - 1]);
+                k = i;
+            }
+        }
+        left = k;
+        for (i = left; ++(this -> comparison) && i < right; i++) {
+            if ( ++(this -> comparison) && arr[i] > arr[i + 1]) {
+                swap(arr[i], arr[i + 1]);
+                k = i;
+            }
+        }
+        right = k;
+    }
+}
 
 void Sort::shellSort_runTime(int *arr, int size)
 {
@@ -476,6 +543,76 @@ void Sort::countingSort_comparison(int *arr, int size)
 
     delete[] output;
     delete[] count_array;
+}
+
+void Sort::radixSort_runTime(int *arr, int size)
+{
+    // Find the maximum number to know the number of digits
+    int max = arr[0];
+    for (int i = 1; i < size; i++) {
+        if (arr[i] > max) max = arr[i];
+    }
+        
+    // Create an array saving temporary data of array arr[]
+    int *temp = new int [size];
+
+    // exp is 10^i where i is current digit number
+    for (int exp = 1; max / exp > 0; exp *= 10) {
+        int i, count[10] = {0};
+
+        // Store the number of occurrences in count[]
+        for (i = 0; i < size; i++) count[(arr[i] / exp) % 10]++;
+
+        // Change count[i] so that count[i] now contains the actual position of this digit in temp[]
+        for (i = 1; i < 10; i++) count[i] += count[i - 1];
+
+        // Build the temp array
+        for (i = size - 1; i >= 0; i--) {
+            temp[count[(arr[i] / exp) % 10] - 1] = arr[i];
+            count[(arr[i] / exp) % 10]--;
+        }
+
+        // Copy the temp array to arr[], so that arr[] now contains sorted numbers according to current digit
+        for (i = 0; i < size; i++) arr[i] = temp[i];
+
+    }
+    
+    delete []temp;
+}
+
+void Sort::radixSort_comparison(int *arr, int size)
+{
+    // Find the maximum number to know the number of digits
+    int max = arr[0];
+    for (int i = 1; ++(this -> comparison) && (i < size); i++) {
+        if ( ++(this -> comparison) && arr[i] > max) max = arr[i];
+    }
+        
+    // Create an array saving temporary data of array arr[]
+    int *temp = new int [size];
+
+    // exp is 10^i where i is current digit number
+    for (int exp = 1; ++(this -> comparison) && max / exp > 0; exp *= 10) {
+        int i, count[10] = {0};
+
+        // Store the number of occurrences in count[]
+        for (i = 0; ++(this -> comparison) && (i < size); i++) count[(arr[i] / exp) % 10]++;
+
+        // Change count[i] so that count[i] now contains the actual position of this digit in temp[]
+        for (i = 1; ++(this -> comparison) && (i < 10); i++) count[i] += count[i - 1];
+
+        // Build the temp array
+        for (i = size - 1; ++(this -> comparison) && (i >= 0); i--) {
+            temp[count[(arr[i] / exp) % 10] - 1] = arr[i];
+            count[(arr[i] / exp) % 10]--;
+        }
+
+        // Copy the temp array to arr[], so that arr[] now contains sorted numbers according to current digit
+        for (i = 0; ++(this -> comparison) && (i < size); i++) arr[i] = temp[i];
+
+    }
+    
+    delete []temp;
 }
 
 void Sort::flashSort_runTime(int *arr, int size)
@@ -632,11 +769,41 @@ void Sort::insertionSort()
 
 void Sort::bubbleSort()
 {
+    // Create a copy array
+    int *copyArr = new int[this -> size];
+    for (int i = 0; i < this -> size; i++) copyArr[i] = this -> arr[i];
+
+    // Calculate the amount of running time
+    auto start = chrono::high_resolution_clock::now();
+    bubbleSort_runTime(this -> arr, this -> size);
+    auto end = chrono::high_resolution_clock::now();
+    this -> runTime = chrono::duration_cast<chrono::milliseconds>(end - start).count();
+
+    // Reset array
+    setArr(copyArr, this -> size);
+
+    // Calculate the number of comparisons
+    bubbleSort_comparison(this -> arr, this -> size);
     return;
 }
 
 void Sort::shakerSort()
 {
+    // Create a copy array
+    int *copyArr = new int[this -> size];
+    for (int i = 0; i < this -> size; i++) copyArr[i] = this -> arr[i];
+
+    // Calculate the amount of running time
+    auto start = chrono::high_resolution_clock::now();
+    shakerSort_runTime(this -> arr, this -> size);
+    auto end = chrono::high_resolution_clock::now();
+    this -> runTime = chrono::duration_cast<chrono::milliseconds>(end - start).count();
+
+    // Reset array
+    setArr(copyArr, this -> size);
+
+    // Calculate the number of comparisons
+    shakerSort_comparison(this -> arr, this -> size);
     return;
 }
 
@@ -697,6 +864,21 @@ void Sort::countingSort()
 
 void Sort::radixSort()
 {
+    // Create a copy array
+    int *copyArr = new int[this -> size];
+    for (int i = 0; i < this -> size; i++) copyArr[i] = this -> arr[i];
+
+    // Calculate the amount of running time
+    auto start = chrono::high_resolution_clock::now();
+    radixSort_runTime(this -> arr, this -> size);
+    auto end = chrono::high_resolution_clock::now();
+    this -> runTime = chrono::duration_cast<chrono::milliseconds>(end - start).count();
+
+    // Reset array
+    setArr(copyArr, this -> size);
+
+    // Calculate the number of comparisons
+    radixSort_comparison(this -> arr, this -> size);
     return;
 }
 
