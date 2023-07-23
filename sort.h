@@ -1,6 +1,4 @@
-﻿#pragma once
-
-#include <iostream>
+﻿#include <iostream>
 #include <fstream>
 #include <cmath>
 #include <time.h>
@@ -36,6 +34,15 @@ private:
 
     void shellSort_runTime(int *arr, int size);
     void shellSort_comparison(int *arr, int size);
+
+    void heapSort_runTime(int *arr, int size);
+    void heapSort_comparison(int *arr, int size);
+
+    void mergeSort_runTime(int *arr, int size);
+    void mergeSort_comparison(int *arr, int size);
+
+    void quickSort_runTime(int *arr, int size);
+    void quickSort_comparison(int *arr, int size);
 
     void countingSort_runTime(int *arr, int size);
     void countingSort_comparison(int *arr, int size);

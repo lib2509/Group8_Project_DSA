@@ -3,7 +3,7 @@
 
 using namespace std;
 
-void mergeSort(int *&a, int n)
+void mergeSortRunTime(int *&a, int n)
 {
     if (n <= 1)
         return;
@@ -19,8 +19,8 @@ void mergeSort(int *&a, int n)
     for (int i = 0; i < rn; i++)
         ra[i] = a[i + ln];
 
-    mergeSort(la, ln);
-    mergeSort(ra, rn);
+    mergeSortRunTime(la, ln);
+    mergeSortRunTime(ra, rn);
 
     int i, j, k;
     i = j = k = 0;
