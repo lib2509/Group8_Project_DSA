@@ -467,6 +467,40 @@ void Sort::heapSort_runTime(int *arr, int n)
     IntHeap h(n);
     h.init(arr, n);
     h.sort(0, n - 1, 0);
+    h.clear();
+}
+
+void Sort::heapSort_comparison(int *arr, int n)
+{
+    IntHeap h(n);
+    h.init(arr, n);
+    h.sort(0, n - 1, 1);
+    this->comparison = h.getCntComp();
+    h.clear(); 
+}
+
+void Sort::mergeSort_runTime(int *arr, int n)
+{
+    mergeSortRunTime(arr, n);
+}
+
+void Sort::mergeSort_comparison(int *arr, int n)
+{
+    int cntComp = 0;
+    mergeSortCntComp(arr, n, cntComp);
+    this->comparison = cntComp;
+}
+
+void Sort::quickSort_runTime(int *arr, int n)
+{
+    quickSortRunTime(arr, 0, n - 1);
+}
+
+void Sort::quickSort_comparison(int *arr, int n)
+{
+    int cntComp = 0;
+    quickSortCntComp(arr, 0, n - 1, cntComp);
+    this->comparison = cntComp;
 }
 
 void Sort::countingSort_runTime(int *arr, int size)
@@ -839,15 +873,6 @@ void Sort::shellSort()
     return;
 }
 
-
-void Sort::heapSort_comparison(int *arr, int n)
-{
-    IntHeap h(n);
-    h.init(arr, n);
-    h.sort(0, n - 1, 1);
-    this->comparison = h.getCntComp();   
-}
-
 void Sort::heapSort()
 {
     int *copyArr = new int[this->size];
@@ -865,17 +890,44 @@ void Sort::heapSort()
 
     // Calculate comparison
     heapSort_comparison(this->arr, this->size);
-    
 }
 
 void Sort::mergeSort()
 {
-    return;
+    int *copyArr = new int[this->size];
+    for (int i = 0; i < this->size; i++) {
+        copyArr[i] = this->arr[i];
+    }
+    // Calculate running time
+    auto start = chrono::high_resolution_clock::now();
+    mergeSort_runTime(this->arr, this->size);
+    auto end = chrono::high_resolution_clock::now();
+    this->runTime = chrono::duration_cast<chrono::milliseconds>(end - start).count();
+    
+    // Reset array
+    setArr(copyArr, this->size);
+
+    // Calculate comparison
+    mergeSort_comparison(this->arr, this->size);
 }
 
 void Sort::quickSort()
 {
-    return;
+    int *copyArr = new int[this->size];
+    for (int i = 0; i < this->size; i++) {
+        copyArr[i] = this->arr[i];
+    }
+    // Calculate running time
+    auto start = chrono::high_resolution_clock::now();
+    quickSort_runTime(this->arr, this->size);
+    auto end = chrono::high_resolution_clock::now();
+    this->runTime = chrono::duration_cast<chrono::milliseconds>(end - start).count();
+    
+    // Reset array
+    setArr(copyArr, this->size);
+
+    // Calculate comparison
+    quickSort_comparison(this->arr, this->size);
 }
 
 void Sort::countingSort()
