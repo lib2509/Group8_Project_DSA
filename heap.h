@@ -1,5 +1,4 @@
-#ifndef _heap_h_
-#define _heap_h_
+#include "components.h"
 
 class IntHeap
 {
@@ -25,5 +24,3 @@ private:
     long long cntComp = 0;
     int *h = nullptr;
 };
-
-#endif

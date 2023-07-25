@@ -1,7 +1,6 @@
 ﻿#include "sort.h"
 #include "heap.h"
-#include "MergeSort.h"
-#include "QuickSort.h"
+#include "DataGenerator.h"
 
 Sort::Sort(int *arr, unsigned int size)
 {
@@ -260,14 +259,14 @@ int Sort::run(int argc, char *argv[])
 void Sort::experiment()
 {
     int *a = nullptr;
-    ofstream ofs("heap_merge_quick.csv");
+    ofstream ofs("data.csv");
     ofs << "DataOrder,DataSize,SortName,Comparison,RunTime" << endl;
     cout << "DataOrder,DataSize,SortName,Comparison,RunTime" << endl;
     for (int i = 0; i < 4; i++)
     {
         for (int j = 0; j < 6; j++)
         {
-            for (int k = 5; k < 8; k++)
+            for (int k = 0; k < 11; k++)
             {
                 a = new int[dataSize[j]];
                 GenerateData(a, dataSize[j], i);
@@ -846,12 +845,10 @@ void Sort::selectionSort()
     selectionSort_runTime(this->arr, this->size);
     auto end = chrono::high_resolution_clock::now();
     this->runTime = chrono::duration_cast<chrono::milliseconds>(end - start).count();
-    // cout << isAscending(this->arr, this->size) << endl;
     // Reset array
     setArr(copyArr, this->size);
     // Calculate comparison
     selectionSort_comparison(this->arr, this->size);
-    // cout << isAscending(this->arr, this->size) << endl;
     return;
 }
 
@@ -866,12 +863,10 @@ void Sort::insertionSort()
     insertionSort_runTime(this->arr, this->size);
     auto end = chrono::high_resolution_clock::now();
     this->runTime = chrono::duration_cast<chrono::milliseconds>(end - start).count();
-    // cout << isAscending(this->arr, this->size) << endl;
     // Reset array
     setArr(copyArr, this->size);
     // Calculate comparison
     insertionSort_comparison(this->arr, this->size);
-    // cout << isAscending(this->arr, this->size) << endl;
     return;
 }
 
@@ -1098,6 +1093,7 @@ int Sort::command2(int sortType, unsigned int arrSize, int inputOrder, int outpu
 {
     int *arr = new int[arrSize];
     GenerateData(arr, arrSize, inputOrder);
+    writeArrayToFile("input.txt");
     setArr(arr, arrSize);
     sort(sortType);
     cout << "ALGORITHM MODE\n";
@@ -1147,7 +1143,6 @@ int Sort::command4(int sortType1, int sortType2, string filename)
     this->arr = new int[this->size];
     for (int i = 0; i < this->size; i++)
         ifs >> this->arr[i];
-    writeArrayToFile("input.txt");
     unsigned int size = this->size;
     int *copyArr = new int[size];
     for (int i = 0; i < size; i++)
@@ -1230,171 +1225,4 @@ void Sort::printOutput(int outputType)
         cout << "Running time: " << this->runTime << " ms" << endl;
         cout << "Comparison: " << this->comparison << endl;
     }
-}
-
-void GenerateRandomData(int a[], int n)
-{
-    srand((unsigned int)time(NULL));
-
-    for (int i = 0; i < n; i++)
-    {
-        a[i] = rand() % n;
-    }
-}
-
-void GenerateSortedData(int a[], int n)
-{
-    for (int i = 0; i < n; i++)
-    {
-        a[i] = i;
-    }
-}
-
-void GenerateReverseData(int a[], int n)
-{
-    for (int i = 0; i < n; i++)
-    {
-        a[i] = n - 1 - i;
-    }
-}
-
-void GenerateNearlySortedData(int a[], int n)
-{
-    for (int i = 0; i < n; i++)
-    {
-        a[i] = i;
-    }
-    srand((unsigned int)time(NULL));
-    for (int i = 0; i < 10; i++)
-    {
-        int r1 = rand() % n;
-        int r2 = rand() % n;
-        HoanVi(a[r1], a[r2]);
-    }
-}
-
-void GenerateData(int a[], int n, int dataType)
-{
-    switch (dataType)
-    {
-    case 0: // ngẫu nhiên
-        GenerateRandomData(a, n);
-        break;
-    case 1: // có thứ tự
-        GenerateSortedData(a, n);
-        break;
-    case 2: // có thứ tự ngược
-        GenerateReverseData(a, n);
-        break;
-    case 3: // gần như có thứ tự
-        GenerateNearlySortedData(a, n);
-        break;
-    default:
-        printf("Error: unknown data type!\n");
-    }
-}
-
-unsigned int convert_string_to_num(string s)
-{
-    unsigned int num = 0;
-    for (int i = 0; i < s.length(); i++)
-    {
-        if (s[i] >= '0' && s[i] <= '9')
-            num = num * 10 + (s[i] - '0');
-        else
-        {
-            return 0;
-        }
-    }
-    return num;
-}
-
-int convert_string_to_outputType(string s)
-{
-    for (int i = 0; i < 3; i++)
-        if (s == outputParameter[i])
-            return i;
-    return -1;
-}
-
-bool isFileExist(string fileName)
-{
-    ifstream infile(fileName);
-    bool check = infile.good();
-    infile.close();
-    return check;
-}
-
-int convert_string_to_inputOrderType(string s)
-{
-    for (int i = 0; i < 4; i++)
-        if (dataOrder[i] == s)
-            return i;
-    return -1;
-}
-
-bool isAscending(int *arr, int size)
-{
-    for (int i = 0; i < size - 1; i++)
-        if (arr[i] > arr[i + 1])
-            return false;
-    return true;
-}
-
-void printUserManual()
-{
-    cout << "---------------------------------------------------------------\n\n";
-    cout << "COMMAND LINE ARGUMENTS\n\n";
-    cout << "Command 1: Run a sorting algorithm on the given input data\n"
-         << "Prototype : [Execution file] -a [Algorithm] [Given input] [Output parameter(s)]\n\n"
-         << "Ex : a.exe -a radix-sort input.txt -both\n\n";
-    cout << "---------------------------------------------------------------\n\n";
-    cout << "Command 2: Run a sorting algorithm on the generated input data\n"
-         << "Prototype : [Execution file] -a [Algorithm] [Data size] [Input order] [Output parameter(s)]\n\n"
-         << "Ex : a.exe -a radix-sort 1000 -rand -both\n\n";
-    cout << "---------------------------------------------------------------\n\n";
-    cout << "Command 3: Run a sorting algorithm on the generated input data\n"
-         << "Prototype : [Execution file] -a [Algorithm] [Data size] [Output parameter(s)]\n"
-         << "Ex : a.exe -a radix-sort 1000 -both\n\n";
-    cout << "---------------------------------------------------------------\n\n";
-    cout << "Command 4: Compare two sorting algorithms on the given input data\n"
-         << "Prototype : [Execution file] -a [Algorithm 1] [Algorithm 2] [Given input]\n"
-         << "Ex : a.exe -a radix-sort insertion-sort input.txt\n\n";
-    cout << "---------------------------------------------------------------\n\n";
-    cout << "Command 5: Compare two sorting algorithms on the generated input data\n"
-         << "Prototype : [Execution file] -a [Algorithm 1] [Algorithm 2] [Data size] [Input order]\n"
-         << "Ex : a.exe -a radix-sort insertion-sort 1000 -rand\n\n";
-    cout << "---------------------------------------------------------------\n";
-    cout << "---------------------------------------------------------------\n";
-    cout << "INPUT ARGUMENTS: The following arguments are applied for both modes.\n\n";
-    cout << "1. Mode:\n"
-         << "-a : Algorithm mode\n"
-         << "-c : Comparison mode\n\n";
-    cout << "---------------------------------------------------------------\n\n";
-    cout << "2: Algorithm name: Lowercase, words are connected by \"-\":\n";
-    for (int i = 0; i < 11; i++)
-        cout << "+ " << sortName[i] << "\n";
-    cout << "---------------------------------------------------------------\n\n";
-    cout << "3. Input size: an integer number <= 1,000,000\n\n";
-    cout << "---------------------------------------------------------------\n\n";
-    cout << "4. Input order: Lowercase, words are connected by \"-\":\n";
-    cout << "+ rand : randomized data\n"
-         << "+ nsorted : nearly sorted data\n"
-         << "+ sorted : sorted data\n"
-         << "+ rev : reverse sorted data\n";
-    cout << "---------------------------------------------------------------\n\n";
-    cout << "5. Output parameter(s): Lowercase, words are connected by \"-\" :\n";
-    cout << "+ time : algorithms's running time.\n"
-         << "+ comp : number of comparisions.\n"
-         << "+ both : both above options.\n\n";
-    cout << "---------------------------------------------------------------\n\n";
-    cout << "6. Given input(file): Path to the input file. The file format is as follows:\n"
-         << "+ 1st line : an integer n, indicating the number of elements in the input data\n"
-         << "+ 2nd line : n integers, separated by a single space.\n\n";
-    cout << "---------------------------------------------------------------\n\n";
-}
-
-void printInvalidCommand()
-{
-    cout << "Please type \"sort.exe -help\" for help.\n";
 }

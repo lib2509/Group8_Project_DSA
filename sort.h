@@ -1,17 +1,4 @@
-﻿#include <iostream>
-#include <fstream>
-#include <cmath>
-#include <time.h>
-#include <string>
-#include <chrono>
-
-using namespace std;
-
-const unsigned int dataSize[6] = {10000, 30000, 50000, 100000, 300000, 500000};
-const string dataOrder[4] = {"-rand", "-sorted", "-rev", "-nsorted"};
-const string sortName[11] = {"selection-sort", "insertion-sort", "bubble-sort", "shaker-sort", "shell-sort", "heap-sort", "merge-sort", "quick-sort", "counting-sort", "radix-sort", "flash-sort"};
-const string outputParameter[3] = {"-time", "-comp", "-both"};
-const string data_order[4] = {"Randomize", "Sorted", "Reverse", "Nearly Sorted"};
+﻿#include "components.h"
 class Sort
 {
 private:
@@ -87,40 +74,4 @@ public:
     ~Sort();
 };
 
-template <class T>
-void HoanVi(T &a, T &b)
-{
-    T x = a;
-    a = b;
-    b = x;
-}
-
 //-------------------------------------------------
-
-// Hàm phát sinh mảng dữ liệu ngẫu nhiên
-void GenerateRandomData(int a[], int n);
-
-// Hàm phát sinh mảng dữ liệu có thứ tự tăng dần
-void GenerateSortedData(int a[], int n);
-
-// Hàm phát sinh mảng dữ liệu có thứ tự ngược (giảm dần)
-void GenerateReverseData(int a[], int n);
-
-// Hàm phát sinh mảng dữ liệu gần như có thứ tự
-void GenerateNearlySortedData(int a[], int n);
-
-void GenerateData(int a[], int n, int dataType);
-
-unsigned int convert_string_to_num(string s);
-
-int convert_string_to_outputType(string s);
-
-bool isFileExist(string fileName);
-
-int convert_string_to_inputOrderType(string s);
-
-bool isAscending(int *arr, int size);
-
-void printUserManual();
-
-void printInvalidCommand();
