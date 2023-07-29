@@ -103,7 +103,7 @@ void printUserManual()
 
 void printInvalidCommand()
 {
-    cout << "Please type \"sort.exe -help\" for help.\n";
+    cout << "Please type \"$filename$.exe -help\" for help.\n";
 }
 
 void mergeSortRunTime(int *&a, int n)

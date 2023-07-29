@@ -96,7 +96,7 @@ int Sort::run(int argc, char *argv[])
 {
     if (argc == 1)
     {
-        experiment_2();
+        experiment();
         return 0;
     }
     else if (argc == 2)
