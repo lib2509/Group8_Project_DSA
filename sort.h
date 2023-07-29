@@ -68,6 +68,7 @@ public:
     int command4(int sortType1, int sortType2, string filename);
     int command5(int sortType1, int sortType2, unsigned int arrSize, int inputOrder);
     void experiment();
+    void experiment_2();
     // ---------------------------------------------------------------------------------------------
     void printOutput(int outputType);
     void writeArrayToFile(string filename);

@@ -1,4 +1,5 @@
 #include "components.h"
+#include "DataGenerator.h"
 
 unsigned int convert_string_to_num(string s)
 {
@@ -255,4 +256,46 @@ void quickSortCntComp(int *&a, int l, int r, int &cntComp)
 
     quickSortCntComp(a, i, r, cntComp);
     quickSortCntComp(a, l, j, cntComp);
+}
+
+void generateData()
+{
+    for (int i = 0; i < 4; i++)
+    {
+        for (int j = 0; j < 6; j++)
+        {
+            string filename = "Data/" + input_filename[i * 6 + j] + ".txt";
+            ofstream ofs(filename);
+            if (!ofs)
+            {
+                cout << "Cannot open file " << filename << endl;
+                return;
+            }
+            int *a = nullptr;
+            int size_index = j;
+            int order_index = i;
+            unsigned int size = dataSize[size_index];
+            a = new int[size];
+            GenerateData(a, size, order_index);
+            ofs << size << endl;
+            for (int k = 0; k < size; k++)
+                ofs << a[k] << " ";
+            delete[] a;
+        }
+    }
+}
+
+int *getData(string filename, int &n)
+{
+    ifstream ifs(filename);
+    if (!ifs)
+    {
+        cout << "Cannot open file " << filename << endl;
+        return nullptr;
+    }
+    ifs >> n;
+    int *a = new int[n];
+    for (int i = 0; i < n; i++)
+        ifs >> a[i];
+    return a;
 }

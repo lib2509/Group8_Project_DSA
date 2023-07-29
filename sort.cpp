@@ -96,7 +96,7 @@ int Sort::run(int argc, char *argv[])
 {
     if (argc == 1)
     {
-        experiment();
+        experiment_2();
         return 0;
     }
     else if (argc == 2)
@@ -278,6 +278,40 @@ void Sort::experiment()
                 cout << data_order[i] << "," << dataSize[j] << "," << sortName[k] << "," << comparison << "," << runTime << endl;
                 reset();
             }
+        }
+    }
+    ofs.close();
+}
+
+void Sort::experiment_2()
+{
+    int *a = nullptr;
+    ofstream ofs("data_2.csv");
+    for (int i = 0; i < 4; i++)
+    {
+        cout << "Data order," << data_order[i] << endl;
+        ofs << "Data order," << data_order[i] << endl;
+        cout << "Sort name,Comp1,Run1,Comp2,Run2,Comp3,Run3,Comp4,Run4,Comp5,Run5,Comp6,Run6" << endl;
+        ofs << "Sort name,Comp1,Run1,Comp2,Run2,Comp3,Run3,Comp4,Run4,Comp5,Run5,Comp6,Run6" << endl;
+        for (int j = 0; j < 11; j++)
+        {
+            cout << sortName[j] << ",";
+            ofs << sortName[j] << ",";
+            for (int k = 0; k < 6; k++)
+            {
+                string filename = "Data/" + data_order[i] + "_" + to_string(dataSize[k]) + ".txt";
+                int n;
+                a = getData(filename, n);
+                setArr(a, dataSize[k]);
+                sort(j + 1);
+                unsigned long long comparison = getComparison();
+                unsigned long long runTime = getRunningTime();
+                cout << comparison << "," << runTime << ",";
+                ofs << comparison << "," << runTime << ",";
+                reset();
+            }
+            cout << endl;
+            ofs << endl;
         }
     }
     ofs.close();
